@@ -24,9 +24,9 @@ class SimpleTokenizer:
         """
         
         special_tokens=[self.pad_token, self.unk_token, self.bos_token, self.eos_token]
-        for id, word in enumerate(special_tokens):
-            self.word_to_id[word]=id
-            self.id_to_word[id]=word
+        # for id, word in enumerate(special_tokens):
+        #     self.word_to_id[word]=id
+        #     self.id_to_word[id]=word
         
         unique_words = set()
 
@@ -34,11 +34,12 @@ class SimpleTokenizer:
             unique_words|=set(text.lower().split())
 
         unique_words=sorted(unique_words)
+        unique_words=special_tokens+unique_words
         
         for id, word in enumerate(unique_words):
             if word not in self.word_to_id:
-                self.word_to_id[word]=id+4
-                self.id_to_word[id+4]=word
+                self.word_to_id[word]=id
+                self.id_to_word[id]=word
                 
         self.vocab_size = len(self.word_to_id)
         
